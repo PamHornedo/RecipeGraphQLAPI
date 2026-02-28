@@ -1,4 +1,4 @@
-import { RecipeModel } from './models/recipe';
+import { RecipeModel } from "./models/recipe";
 
 type CreateRecipeInput = {
   title: string;
@@ -23,12 +23,15 @@ export const resolvers = {
     recipes: async () => {
       return RecipeModel.find();
     },
-    recipe: async (_parent: unknown, _args: { id: string }) => {
-      return null;
+    recipe: async (_parent: unknown, { id }: { id: string }) => {
+      return RecipeModel.findOne({ _id: id });
     },
   },
   Mutation: {
-    createRecipe: async (_parent: unknown, args: { input: CreateRecipeInput }) => {
+    createRecipe: async (
+      _parent: unknown,
+      args: { input: CreateRecipeInput },
+    ) => {
       return RecipeModel.create(args.input);
     },
     updateRecipe: async (

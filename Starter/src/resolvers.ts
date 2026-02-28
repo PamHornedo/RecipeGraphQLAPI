@@ -42,5 +42,12 @@ export const resolvers = {
         new: true,
       });
     },
+    deleteRecipe: async (_parent: unknown, { id }: { id: string }) => {
+      const deletedRecipe = await RecipeModel.findByIdAndDelete({ _id: id });
+      if (!deletedRecipe) {
+        return null;
+      }
+      return deletedRecipe;
+    },
   },
 };
